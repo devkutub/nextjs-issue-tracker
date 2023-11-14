@@ -6,6 +6,8 @@ import { FunctionComponent } from "react";
 import ReactMarkdown from "react-markdown";
 import { Pencil2Icon } from '@radix-ui/react-icons'
 import Link from "next/link";
+import IssueDetails from "./IssueDetails";
+import IssueEditButton from "./IssueEditButton";
 
 interface IssueDetailsPageProps {
     params: { id: string }
@@ -21,20 +23,10 @@ const IssueDetailsPage: FunctionComponent<IssueDetailsPageProps> = async ({ para
     return (
         <Grid columns={{ initial: "1", md: "2" }} gap="5">
             <Box>
-                <Heading>{issue?.title}</Heading>
-                <Flex gap="3" my="2">
-                    <IssueStatusBadge status={issue.status} />
-                    <Text>{issue?.createdAt.toDateString()}</Text>
-                </Flex>
-                <Card className="prose mt-5">
-                    <ReactMarkdown>{issue?.description}</ReactMarkdown>
-                </Card>
+                <IssueDetails issue={issue} />
             </Box>
             <Box>
-                <Button>
-                    <Pencil2Icon />
-                    <Link href={`/issues/${id}/edit`}>Edit Issue</Link>
-                </Button>
+                <IssueEditButton issueId={issue.id} />
             </Box>
         </Grid>
     );
